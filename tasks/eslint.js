@@ -14,6 +14,7 @@ module.exports = grunt => {
 					maxWarnings,
 					failOnError,
 					outputFile,
+					cacheFile,
 					...options
 				} = this.options({
 					outputFile: false,
@@ -68,6 +69,10 @@ module.exports = grunt => {
 				}
 
 				done(failOnError ? errorCount === 0 : 0);
+
+				if (errorCount === 0 && cacheFile)
+					grunt.file.write(cacheFile, "");
+
 			} catch (error) {
 				done(error);
 			}
